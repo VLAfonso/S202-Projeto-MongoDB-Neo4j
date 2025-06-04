@@ -1,3 +1,6 @@
+from estoque import EstoqueCRUD
+from funcionarios import FuncionariosCRUD
+
 class SimpleCLI:
     def __init__(self):
         self.commands = {}
@@ -35,7 +38,7 @@ class InicialCLI(SimpleCLI):
         
 
 class EstoqueCLI(SimpleCLI):
-    def __init__(self, estoque):
+    def __init__(self, estoque: EstoqueCRUD):
         super().__init__()
         self.estoque = estoque
         self.add_command("1", self.criar_produto)
@@ -44,32 +47,31 @@ class EstoqueCLI(SimpleCLI):
         self.add_command("4", self.apagar_produto)
 
     def criar_produto(self):
-        id = int(input("Enter the id: "))
-        title = input("Enter the title: ")
-        author = input("Enter the author: ")
-        year = int(input("Enter the year: "))
-        price = float(input("Enter the price: "))
-        self.estoque.criar_produto(id, title, author, year, price)
+        nome = int(input("Entre com o nome: "))
+        codigoBarras = input("Entre com o codigoBarras: ")
+        id = input("Entre com o id: ")
+        preco = int(input("Entre com o preco: "))
+        quantidade = float(input("Entre com a quantidade: "))
+        self.estoque.criar_produto(nome, codigoBarras, id, preco, quantidade)
 
     def ler_produto(self):
-        id = int(input("Enter the id: "))
+        id = int(input("Entre com o id: "))
         produto = self.estoque.ler_produto_by_id(id)
         if produto:
-            print(f"Title: {produto['titulo']}")
-            print(f"Author: {produto['autor']}")
-            print(f"Year: {produto['ano']}")
-            print(f"Price: {produto['preco']}")
+            print(f"Nome: {produto['nome']}")
+            print(f"Codigo de barras: {produto['codigoBarras']}")
+            print(f"Preco: {produto['preco']}")
+            print(f"Quantidade: {produto['quantidade']}")
 
     def atualizar_produto(self):
-        id = int(input("Enter the id: "))
-        title = input("Enter the new title: ")
-        author = input("Enter the new author: ")
-        year = int(input("Enter the new year: "))
-        price = float(input("Enter the new price: "))
-        self.estoque.atualizar_produto(id, title, author, year, price)
+        nome = input("Entre com o novo nome: ")
+        codigoBarras = input("Entre com o novo codigo de barras: ")
+        preco = float(input("Entre com o novo preco: "))
+        quantidade = int(input("Entre com a nova quantidade: "))
+        self.estoque.atualizar_produto(nome, codigoBarras, preco, quantidade)
 
     def apagar_produto(self):
-        id = int(input("Enter the id: "))
+        id = int(input("Entre com o id: "))
         self.estoque.apagar_produto(id)
         
     def run(self):
@@ -92,7 +94,7 @@ class EstoqueCLI(SimpleCLI):
 
 
 class FuncionariosCLI(SimpleCLI):
-    def __init__(self, funcionarios):
+    def __init__(self, funcionarios: FuncionariosCRUD):
         super().__init__()
         self.funcionarios = funcionarios
         self.add_command("1", self.criar_funcionario)
@@ -108,41 +110,32 @@ class FuncionariosCLI(SimpleCLI):
 
 
     def criar_funcionario(self):
-        '''
-        id = int(input("Enter the id: "))
-        title = input("Enter the title: ")
-        author = input("Enter the author: ")
-        year = int(input("Enter the year: "))
-        price = float(input("Enter the price: "))
-        self.funcionarios.criar_funcionario(id, title, author, year, price)
-        '''
+        nome = input("Entre com o nome: ")
+        dataNascimento = input("Entre com a data de nascimento: ")
+        cpf = input("Entre com o cpf: ")
+        id = int(input("Entre com o id: "))
+        telefone = input("Entre com o telefone: ")
+        email = input("Entre com o email: ")
+        self.funcionarios.criar_funcionario(nome, dataNascimento, cpf, id, telefone, email)
 
     def ler_funcionario(self):
-        '''
         id = int(input("Enter the id: "))
         funcionario = self.funcionario.ler_funcionario_by_id(id)
         if funcionario:
-            print(f"Title: {funcionario['titulo']}")
-            print(f"Author: {funcionario['autor']}")
-            print(f"Year: {funcionario['ano']}")
-            print(f"Price: {funcionario['preco']}")
-            '''
+            print(f"Nome: {funcionario['nome']}")
+            print(f"CPF: {funcionario['cpf']}")
+            print(f"Telefone: {funcionario['telefone']}")
+            print(f"Email: {funcionario['email']}")
 
     def atualizar_funcionario(self):
-        '''
-        id = int(input("Enter the id: "))
-        title = input("Enter the new title: ")
-        author = input("Enter the new author: ")
-        year = int(input("Enter the new year: "))
-        price = float(input("Enter the new price: "))
-        self.funcionarios.atualizar_funcionario(id, title, author, year, price)
-        '''
+        id = int(input("Entre com o id: "))
+        telefone = input("Entre com o novo telefone: ")
+        email = input("Entre com o novo email: ")
+        self.funcionarios.atualizar_funcionario(id, telefone, email)
 
     def apagar_funcionario(self):
-        '''
-        id = int(input("Enter the id: "))
+        id = int(input("Entre com o id: "))
         self.funcionarios.apagar_funcionario(id)
-        '''
 
     def criar_setor(self):
         '''
