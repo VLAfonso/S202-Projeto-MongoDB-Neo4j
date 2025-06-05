@@ -47,11 +47,11 @@ class EstoqueCLI(SimpleCLI):
         self.add_command("4", self.apagar_produto)
 
     def criar_produto(self):
-        nome = int(input("Entre com o nome: "))
-        codigoBarras = input("Entre com o codigoBarras: ")
         id = input("Entre com o id: ")
-        preco = int(input("Entre com o preco: "))
-        quantidade = float(input("Entre com a quantidade: "))
+        nome = input("Entre com o nome: ")
+        codigoBarras = int(input("Entre com o codigoBarras: "))
+        preco = float(input("Entre com o preco: "))
+        quantidade = int(input("Entre com a quantidade: "))
         self.estoque.criar_produto(nome, codigoBarras, id, preco, quantidade)
 
     def ler_produto(self):
@@ -65,7 +65,7 @@ class EstoqueCLI(SimpleCLI):
 
     def atualizar_produto(self):
         nome = input("Entre com o novo nome: ")
-        codigoBarras = input("Entre com o novo codigo de barras: ")
+        codigoBarras = int(input("Entre com o novo codigo de barras: "))
         preco = float(input("Entre com o novo preco: "))
         quantidade = int(input("Entre com a nova quantidade: "))
         self.estoque.atualizar_produto(nome, codigoBarras, preco, quantidade)
@@ -110,19 +110,20 @@ class FuncionariosCLI(SimpleCLI):
 
 
     def criar_funcionario(self):
+        id = int(input("Entre com o id: "))
         nome = input("Entre com o nome: ")
         dataNascimento = input("Entre com a data de nascimento: ")
         cpf = input("Entre com o cpf: ")
-        id = int(input("Entre com o id: "))
         telefone = input("Entre com o telefone: ")
         email = input("Entre com o email: ")
         self.funcionarios.criar_funcionario(nome, dataNascimento, cpf, id, telefone, email)
 
     def ler_funcionario(self):
-        id = int(input("Enter the id: "))
-        funcionario = self.funcionario.ler_funcionario_by_id(id)
+        id = int(input("Entre com o id: "))
+        funcionario = self.funcionarios.ler_funcionario(id)
         if funcionario:
             print(f"Nome: {funcionario['nome']}")
+            print(f"Data de nascimento: {funcionario['dataNascimento']}")
             print(f"CPF: {funcionario['cpf']}")
             print(f"Telefone: {funcionario['telefone']}")
             print(f"Email: {funcionario['email']}")
