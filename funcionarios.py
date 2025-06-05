@@ -9,10 +9,10 @@ class FuncionariosCRUD:
             print(f'O produto {nome} foi criado no banco de dados')
     
     def ler_funcionario(self, id):
-        query = "MATCH (f:Funcionario {id: $id}) RETURN f.nome as nome, f.cpf as cpf, f.telefone as telefone, f.email as email"
+        query = "MATCH (f:Funcionario {id: $id}) RETURN f.nome as nome, f.dataNascimento as dataNascimento, f.cpf as cpf, f.telefone as telefone, f.email as email"
         parameters = {"id": id}
         results = self.db.execute_query(query, parameters)
-        return [(result["nome"], result["cpf"] ,result["telefone"], result["email"]) for result in results]
+        return [(result["nome"], result["dataNascimento"], result["cpf"] ,result["telefone"], result["email"]) for result in results]
     
     def atualizar_funcionario(self, id, telefone, email):
         query = "MATCH (f.Funcionario {id: $id}) SET f.telefone = $telefone, f.email = $email"
