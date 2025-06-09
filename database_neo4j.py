@@ -1,7 +1,7 @@
 from neo4j import GraphDatabase
 from dataset_neo4j import Dataset
 
-class Database:
+class DatabaseNeo4j:
     def __init__(self, uri, user, password):
         self.driver = GraphDatabase.driver(uri, auth=(user, password))
         self.dataset = Dataset(self)
@@ -11,7 +11,7 @@ class Database:
 
     def execute_query(self, query, parameters=None):
         data = []
-        with self.driver.session() as session:
+        with self.driver.session() as session:  
             results = session.run(query, parameters)
             for record in results:
                 data.append(record)

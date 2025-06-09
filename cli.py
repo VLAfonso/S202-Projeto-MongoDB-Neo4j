@@ -1,5 +1,6 @@
 from estoque import EstoqueCRUD
 from funcionarios import FuncionariosCRUD
+from produtos import Produto
 
 class SimpleCLI:
     def __init__(self):
@@ -52,7 +53,8 @@ class EstoqueCLI(SimpleCLI):
         codigoBarras = int(input("Entre com o codigoBarras: "))
         preco = float(input("Entre com o preco: "))
         quantidade = int(input("Entre com a quantidade: "))
-        self.estoque.criar_produto(nome, codigoBarras, id, preco, quantidade)
+        produto = Produto(nome, codigoBarras, preco, quantidade)
+        self.estoque.criar_produto(produto)
 
     def ler_produto(self):
         id = int(input("Entre com o id: "))

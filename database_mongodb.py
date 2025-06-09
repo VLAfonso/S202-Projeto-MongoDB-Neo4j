@@ -3,7 +3,7 @@ import pymongo # pip install pymongo
 from dataset_mongodb import dataset
 
 
-class Database:
+class DatabaseMongoDB:
     def __init__(self, database, collection):
         self.connect(database, collection)
 
