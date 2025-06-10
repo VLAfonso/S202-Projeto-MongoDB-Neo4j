@@ -9,7 +9,7 @@ class EstoqueCRUD:
     def criar_produto(self, produto : Produto):
         try:
             res = self.db.collection.insert_one(produto.get_info())
-            print(f"Produto {produto['nome']} criado.")
+            print(f"Produto {produto.get_info()['nome']} criado.")
             return str(res.inserted_id)
         except Exception as e:
             print(f"Erro ao criar produto: {e}")
