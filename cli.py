@@ -49,12 +49,12 @@ class EstoqueCLI(SimpleCLI):
         self.add_command("4", self.apagar_produto)
 
     def criar_produto(self):
-        id = input("Entre com o id: ")
+        id = int(input("Entre com o id: "))
         nome = input("Entre com o nome: ")
-        codigoBarras = int(input("Entre com o codigoBarras: "))
-        preco = float(input("Entre com o preco: "))
+        codigoBarras = int(input("Entre com o código de barras: "))
+        preco = float(input("Entre com o preço: "))
         quantidade = int(input("Entre com a quantidade: "))
-        produto = Produto(nome, codigoBarras, preco, quantidade)
+        produto = Produto(id, nome, codigoBarras, preco, quantidade)
         self.estoque.criar_produto(produto)
         self.mensagem()
 
@@ -69,11 +69,10 @@ class EstoqueCLI(SimpleCLI):
         self.mensagem()
 
     def atualizar_produto(self):
-        nome = input("Entre com o novo nome: ")
-        codigoBarras = int(input("Entre com o novo codigo de barras: "))
-        preco = float(input("Entre com o novo preco: "))
+        id = int(input("Entre com o id: "))
+        preco = float(input("Entre com o novo preço: "))
         quantidade = int(input("Entre com a nova quantidade: "))
-        self.estoque.atualizar_produto(nome, codigoBarras, preco, quantidade)
+        self.estoque.atualizar_produto(id, preco, quantidade)
         self.mensagem()
 
     def apagar_produto(self):

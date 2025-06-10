@@ -5,12 +5,11 @@ from bson.objectid import ObjectId
 class EstoqueCRUD:
     def __init__(self, database):
         self.db = database
-        self.collection = self.db['produtos']
 
     def criar_produto(self, produto : Produto):
         try:
-            res = self.collection.insert_one(produto.get_info())
-            print(f"Produto criado com id: {res.inserted_id}")
+            res = self.db.collection.insert_one(produto.get_info())
+            print(f"Produto {produto['nome']} criado.")
             return str(res.inserted_id)
         except Exception as e:
             print(f"Erro ao criar produto: {e}")
@@ -18,9 +17,9 @@ class EstoqueCRUD:
     
     def ler_produto_by_id(self, id):
         try:
-            res = self.collection.find_one({"_id": ObjectId(id)})
+            res = self.db.collection.find_one({"id": id})
             if res:
-                print(f"Produto encontrado: {res}")
+                print(f"Produto encontrado.")
             else:
                 print("Produto não encontrado.")
             return res
@@ -30,8 +29,8 @@ class EstoqueCRUD:
     
     def atualizar_produto(self, id, preco, quantidade):
         try:
-            res = self.collection.update_one(
-                {"_id": ObjectId(id)},
+            res = self.db.collection.update_one(
+                {"id": id},
                 {"$set": {"preco": preco, "quantidade": quantidade}}
             )
             print(f"{res.modified_count} produto(s) atualizado(s)")
@@ -42,7 +41,7 @@ class EstoqueCRUD:
         
     def apagar_produto(self, id):
         try:
-            res = self.collection.delete_one({"_id": ObjectId(id)})
+            res = self.db.collection.delete_one({"id": id})
             print(f"{res.deleted_count} produto(s) deletado(s)")
             return res.deleted_count
         except Exception as e:
