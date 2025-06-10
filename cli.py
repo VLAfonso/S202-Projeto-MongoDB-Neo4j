@@ -59,14 +59,18 @@ class EstoqueCLI(SimpleCLI):
         self.mensagem()
 
     def ler_produto(self):
-        id = int(input("Entre com o id: "))
-        produto = self.estoque.ler_produto_by_id(id)
-        if produto:
-            print(f"Nome: {produto['nome']}")
-            print(f"Codigo de barras: {produto['codigoBarras']}")
-            print(f"Preco: {produto['preco']}")
-            print(f"Quantidade: {produto['quantidade']}")
+        produtos = self.estoque.ler_todos_produtos()
+        if produtos:
+            for produto in produtos:
+                print(f"Nome: {produto.get('nome', 'N/A')}")
+                print(f"Código de barras: {produto.get('codigoBarras', 'N/A')}")
+                print(f"Preço: {produto.get('preco', 'N/A')}")
+                print(f"Quantidade: {produto.get('quantidade', 'N/A')}")
+                print("-" * 40)
+        else:
+            print("Nenhum produto cadastrado.")
         self.mensagem()
+
 
     def atualizar_produto(self):
         id = int(input("Entre com o id: "))
@@ -107,7 +111,7 @@ class FuncionariosCLI(SimpleCLI):
         super().__init__()
         self.funcionarios = funcionarios
         self.add_command("1", self.criar_funcionario)
-        self.add_command("2", self.ler_funcionario)
+        self.add_command("2", self.ler_funcionarios)
         self.add_command("3", self.atualizar_funcionario)
         self.add_command("4", self.apagar_funcionario)
         self.add_command("5", self.criar_setor)
@@ -128,15 +132,18 @@ class FuncionariosCLI(SimpleCLI):
         print(self.funcionarios.criar_funcionario(nome, dataNascimento, cpf, id, telefone, email))
         self.mensagem()
 
-    def ler_funcionario(self):
-        id = int(input("Entre com o id: "))
-        funcionario = self.funcionarios.ler_funcionario(id)
-        if funcionario:
-            print(f"Nome: {funcionario['nome']}")
-            print(f"Data de nascimento: {funcionario['dataNascimento']}")
-            print(f"CPF: {funcionario['cpf']}")
-            print(f"Telefone: {funcionario['telefone']}")
-            print(f"Email: {funcionario['email']}")
+    def ler_funcionarios(self):
+        funcionarios = self.funcionarios.ler_todos_funcionarios()
+        if funcionarios:
+            for funcionario in funcionarios:
+                print(f"Nome: {funcionario['nome']}")
+                print(f"Data de nascimento: {funcionario['dataNascimento']}")
+                print(f"CPF: {funcionario['cpf']}")
+                print(f"Telefone: {funcionario['telefone']}")
+                print(f"Email: {funcionario['email']}")
+                print("-" * 40)
+        else:
+            print("Não há funcionários cadastrados.")
         self.mensagem()
 
     def atualizar_funcionario(self):

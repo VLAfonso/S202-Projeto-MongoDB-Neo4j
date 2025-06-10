@@ -15,17 +15,19 @@ class EstoqueCRUD:
             print(f"Erro ao criar produto: {e}")
             return None
     
-    def ler_produto_by_id(self, id):
+    def ler_todos_produtos(self):
         try:
-            res = self.db.collection.find_one({"id": id})
-            if res:
-                print(f"Produto encontrado.")
+            resultados = self.db.collection.find()
+            produtos = list(resultados)
+            if produtos:
+                print("Produtos encontrados.")
             else:
-                print("Produto não encontrado.")
-            return res
+                print("Nenhum produto encontrado.")
+            return produtos
         except Exception as e:
-            print(f"Erro ao ler produto: {e}")
-            return None
+            print(f"Erro ao ler produtos: {e}")
+            return []
+
     
     def atualizar_produto(self, id, preco, quantidade):
         try:

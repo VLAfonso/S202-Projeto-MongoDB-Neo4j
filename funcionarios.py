@@ -11,22 +11,23 @@ class FuncionariosCRUD:
         else:
             print('Não foi possível criar o funcionário.')
     
-    def ler_funcionario(self, id):
-        query = "MATCH (f:Funcionario {id: $id}) RETURN f.nome as nome, f.dataNascimento as dataNascimento, f.cpf as cpf, f.telefone as telefone, f.email as email"
-        parameters = {"id": id}
-        results = self.db.execute_query(query, parameters)
+    def ler_todos_funcionarios(self):
+        query = "MATCH (f:Funcionario) RETURN f.nome as nome, f.dataNascimento as dataNascimento, f.cpf as cpf, f.telefone as telefone, f.email as email"
+        results = self.db.execute_query(query)
         if results:
-            result = results[0]
-            return {
-                "nome": result["nome"],
-                "dataNascimento": result["dataNascimento"],
-                "cpf": result["cpf"],
-                "telefone": result["telefone"],
-                "email": result["email"]
-            }
+            funcionarios = []
+            for result in results:
+                funcionarios.append({
+                    "nome": result["nome"],
+                    "dataNascimento": result["dataNascimento"],
+                    "cpf": result["cpf"],
+                    "telefone": result["telefone"],
+                    "email": result["email"]
+                })
+            return funcionarios
         else:
             print('Não há funcionários cadastrados.')
-        return None
+            return []
     
     def atualizar_funcionario(self, id, telefone, email):
         query = "MATCH (f:Funcionario {id: $id}) SET f.telefone = $telefone, f.email = $email"
