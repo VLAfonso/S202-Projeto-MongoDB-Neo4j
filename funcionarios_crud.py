@@ -1,13 +1,16 @@
+from funcionario import Funcionario
+from setor import Setor
+
 class FuncionariosCRUD:
     def __init__(self, database):
         self.db = database
 
     # CRUD do funcionário
-    def criar_funcionario(self, nome, dataNascimento, cpf, id, telefone, email):
+    def criar_funcionario(self, funcionario: Funcionario):
         query = "CREATE (:Funcionario {nome: $nome, dataNascimento: $dataNascimento, cpf: $cpf, id: $id, telefone: $telefone, email: $email})"
-        result = self.db.execute_query(query, {'nome': nome, 'dataNascimento': dataNascimento, 'cpf': cpf, 'id': id, 'telefone': telefone, 'email': email})
+        result = self.db.execute_query(query, funcionario.get_info())
         if result is not None:
-            print(f'O funcionário {nome} foi criado no banco de dados')
+            print(f'O funcionário {funcionario.nome} foi criado no banco de dados')
         else:
             print('Não foi possível criar o funcionário.')
     
@@ -46,11 +49,11 @@ class FuncionariosCRUD:
             print('Não foi possível apagar o funcionário.')
 
     # CRUD do setor
-    def criar_setor(self, nome, id):
+    def criar_setor(self, setor: Setor):
         query = "CREATE (:Setor {id: $id, nome: $nome})"
-        result = self.db.execute_query(query, {'id': id, 'nome': nome})
+        result = self.db.execute_query(query, setor.get_info())
         if result is not None:
-            print(f'O setor {nome} foi criado no banco de dados')
+            print(f'O setor {setor.nome} foi criado no banco de dados')
         else:
             print('Não foi possível criar o setor.')
     

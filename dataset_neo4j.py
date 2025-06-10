@@ -1,4 +1,4 @@
-from funcionarios import FuncionariosCRUD
+from funcionarios_crud import FuncionariosCRUD
 
 class Dataset:
     def __init__(self, database):

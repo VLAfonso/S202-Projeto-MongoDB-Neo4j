@@ -1,5 +1,5 @@
-from estoque import EstoqueCRUD
-from funcionarios import FuncionariosCRUD
+from estoque_crud import EstoqueCRUD
+from funcionarios_crud import FuncionariosCRUD
 from produtos import Produto
 
 class SimpleCLI:

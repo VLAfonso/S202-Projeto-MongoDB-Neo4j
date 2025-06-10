@@ -1,8 +1,8 @@
 from cli import InicialCLI, EstoqueCLI, FuncionariosCLI
 from database_mongodb import DatabaseMongoDB
 from database_neo4j import DatabaseNeo4j
-from funcionarios import FuncionariosCRUD
-from estoque import EstoqueCRUD
+from funcionarios_crud import FuncionariosCRUD
+from estoque_crud import EstoqueCRUD
 
 # Criar banco de dados do estoque
 dbMongoDB = DatabaseMongoDB(database='Supermercado', collection='Estoque')
