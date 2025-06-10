@@ -1,0 +1,38 @@
+{
+    "$jsonSchema": {
+      "bsonType": "object",
+      "required": [
+        "id",
+        "nome",
+        "codigoBarras",
+        "preco",
+        "quantidade"
+      ],
+      "properties": {
+        "id": {
+          "bsonType": "int",
+          "minimum": 0,
+          "description": "deve ser um inteiro maior que 0 e é obrigatório"
+        },
+        "nome": {
+          "bsonType": "string",
+          "description": "deve ser uma string e é obrigatória"
+        },
+        "codigoBarras": {
+          "bsonType": "long",
+          "minimum": 0,
+          "description": "deve ser um long maior que 0 e é obrigatório"
+        },
+        "preco": {
+          "bsonType": "double",
+          "minimum": 0,
+          "description": "deve ser um double maior que 0 e é obrigatório"
+        },
+        "quantidade": {
+          "bsonType": "int",
+          "minimum": 0,
+          "description": "deve ser um inteiro maior que 0 e é obrigatório"
+        }
+      }
+    }
+  }
