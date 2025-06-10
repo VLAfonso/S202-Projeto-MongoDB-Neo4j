@@ -8,6 +8,8 @@ class FuncionariosCRUD:
         result = self.db.execute_query(query, {'nome': nome, 'dataNascimento': dataNascimento, 'cpf': cpf, 'id': id, 'telefone': telefone, 'email': email})
         if result is not None:
             print(f'O funcionário {nome} foi criado no banco de dados')
+        else:
+            print('Não foi possível criar o funcionário.')
     
     def ler_funcionario(self, id):
         query = "MATCH (f:Funcionario {id: $id}) RETURN f.nome as nome, f.dataNascimento as dataNascimento, f.cpf as cpf, f.telefone as telefone, f.email as email"
@@ -22,6 +24,8 @@ class FuncionariosCRUD:
                 "telefone": result["telefone"],
                 "email": result["email"]
             }
+        else:
+            print('Não há funcionários cadastrados.')
         return None
     
     def atualizar_funcionario(self, id, telefone, email):
@@ -29,12 +33,16 @@ class FuncionariosCRUD:
         result = self.db.execute_query(query, {'id': id, 'telefone': telefone, 'email': email})
         if result is not None:
             print(f'O funcionário com id: {id} foi alterado, novo telefone: {telefone} e novo email: {email}')
+        else:
+            print('Não foi possível atualizar o funcionário.')
     
     def apagar_funcionario(self, id):
         query = "MATCH (f:Funcionario {id: $id}) DETACH DELETE f"
         result = self.db.execute_query(query, {'id': id})
         if result is not None:
             print(f'O funcionário com id: {id} foi deletado do banco de dados')
+        else:
+            print('Não foi possível apagar o funcionário.')
 
     # CRUD do setor
     def criar_setor(self, nome, id):
@@ -42,6 +50,8 @@ class FuncionariosCRUD:
         result = self.db.execute_query(query, {'id': id, 'nome': nome})
         if result is not None:
             print(f'O setor {nome} foi criado no banco de dados')
+        else:
+            print('Não foi possível criar o setor.')
     
     def ler_setor(self, id):
         query = "MATCH (s:Setor {id: $id}) RETURN f.nome as nome"
@@ -52,6 +62,8 @@ class FuncionariosCRUD:
             return {
                 "nome": result["nome"]
             }
+        else:
+            print('Não há setores cadastrados.')
         return None
     
     def atualizar_setor(self, id, nome):
@@ -59,12 +71,16 @@ class FuncionariosCRUD:
         result = self.db.execute_query(query, {'id': id, 'nome': nome})
         if result is not None:
             print(f'O setor com id: {id} foi alterado, novo nome: {nome}')
+        else:
+            print('Não foi possível alterar o setor.')
     
     def apagar_setor(self, id):
         query = "MATCH (s:Setor {id: $id}) DETACH DELETE s"
         result = self.db.execute_query(query, {'id': id})
         if result is not None:
-            print(f'O setor com id: {id} foi deletado do banco de dados')
+            print(f'O setor com id: {id} foi apagado do banco de dados')
+        else:
+            print('Não foi possível apagar o setor.')
 
     # Relacionar setor e funcionário
     def funcionario_setor(self, funcionario, setor):
