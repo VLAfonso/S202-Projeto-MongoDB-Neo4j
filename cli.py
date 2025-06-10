@@ -64,6 +64,8 @@ class EstoqueCLI(SimpleCLI):
             print(f"Codigo de barras: {produto['codigoBarras']}")
             print(f"Preco: {produto['preco']}")
             print(f"Quantidade: {produto['quantidade']}")
+        else:
+            print("Produto não encontrado.")
 
     def atualizar_produto(self):
         nome = input("Entre com o novo nome: ")
@@ -118,7 +120,7 @@ class FuncionariosCLI(SimpleCLI):
         cpf = input("Entre com o cpf: ")
         telefone = input("Entre com o telefone: ")
         email = input("Entre com o email: ")
-        self.funcionarios.criar_funcionario(nome, dataNascimento, cpf, id, telefone, email)
+        print(self.funcionarios.criar_funcionario(nome, dataNascimento, cpf, id, telefone, email))
 
     def ler_funcionario(self):
         id = int(input("Entre com o id: "))
@@ -129,6 +131,8 @@ class FuncionariosCLI(SimpleCLI):
             print(f"CPF: {funcionario['cpf']}")
             print(f"Telefone: {funcionario['telefone']}")
             print(f"Email: {funcionario['email']}")
+        else:
+            print("Funcionário não encontrado.")
 
     def atualizar_funcionario(self):
         id = int(input("Entre com o id: "))
@@ -141,41 +145,25 @@ class FuncionariosCLI(SimpleCLI):
         self.funcionarios.apagar_funcionario(id)
 
     def criar_setor(self):
-        '''
-        id = int(input("Enter the id: "))
-        title = input("Enter the title: ")
-        author = input("Enter the author: ")
-        year = int(input("Enter the year: "))
-        price = float(input("Enter the price: "))
-        self.funcionarios.criar_funcionario(id, title, author, year, price)
-        '''
+        id = int(input("Entre com o id: "))
+        nome = float(input("Entre com o nome do setor: "))
+        print(self.funcionarios.criar_setor(nome, id))
 
     def ler_setor(self):
-        '''
-        id = int(input("Enter the id: "))
-        funcionario = self.funcionario.ler_funcionario_by_id(id)
-        if funcionario:
-            print(f"Title: {funcionario['titulo']}")
-            print(f"Author: {funcionario['autor']}")
-            print(f"Year: {funcionario['ano']}")
-            print(f"Price: {funcionario['preco']}")
-            '''
+        id = int(input("Entre com o id: "))
+        setor = self.funcionarios.ler_setor(id)
+        if setor:
+            print(f"Nome: {setor['nome']}")
 
     def atualizar_setor(self):
-        '''
-        id = int(input("Enter the id: "))
-        title = input("Enter the new title: ")
-        author = input("Enter the new author: ")
-        year = int(input("Enter the new year: "))
-        price = float(input("Enter the new price: "))
-        self.funcionarios.atualizar_funcionario(id, title, author, year, price)
-        '''
+        id = int(input("Entre com o id: "))
+        nome = input("Entre com o nome: ")
+        self.funcionarios.atualizar_setor(id, nome)
 
     def apagar_setor(self):
-        '''
         id = int(input("Enter the id: "))
-        self.funcionarios.apagar_funcionario(id)
-        '''
+        self.funcionarios.apagar_setor(id)
+
     def funcionario_setor(self):
         '''
         Ler nome do funcionário e setor e criar relacionamento entre eles
