@@ -30,6 +30,7 @@ class InicialCLI(SimpleCLI):
         self.add_command("2", self.funcionario_cli.run)
 
     def run(self):
+        print("-"*75)
         print("Bem-vindo ao Sistema de Gerenciamento do Supermercado!")
         print("O que deseja acessar?")
         print("     1- Controle de estoque;")
@@ -37,7 +38,7 @@ class InicialCLI(SimpleCLI):
         print("Digite 'sair' para encerrar.")
         super().run()
         
-
+# CLI para gerência do estoque (produtos)
 class EstoqueCLI(SimpleCLI):
     def __init__(self, estoque: EstoqueCRUD):
         super().__init__()
@@ -55,6 +56,7 @@ class EstoqueCLI(SimpleCLI):
         quantidade = int(input("Entre com a quantidade: "))
         produto = Produto(nome, codigoBarras, preco, quantidade)
         self.estoque.criar_produto(produto)
+        self.mensagem()
 
     def ler_produto(self):
         id = int(input("Entre com o id: "))
@@ -64,8 +66,7 @@ class EstoqueCLI(SimpleCLI):
             print(f"Codigo de barras: {produto['codigoBarras']}")
             print(f"Preco: {produto['preco']}")
             print(f"Quantidade: {produto['quantidade']}")
-        else:
-            print("Produto não encontrado.")
+        self.mensagem()
 
     def atualizar_produto(self):
         nome = input("Entre com o novo nome: ")
@@ -73,12 +74,14 @@ class EstoqueCLI(SimpleCLI):
         preco = float(input("Entre com o novo preco: "))
         quantidade = int(input("Entre com a nova quantidade: "))
         self.estoque.atualizar_produto(nome, codigoBarras, preco, quantidade)
+        self.mensagem()
 
     def apagar_produto(self):
         id = int(input("Entre com o id: "))
         self.estoque.apagar_produto(id)
-        
-    def run(self):
+        self.mensagem()
+    
+    def mensagem(self):
         print("-"*75)
         print("Bem-vindo ao controle de estoque!")
         print("O que deseja acessar:")
@@ -87,6 +90,9 @@ class EstoqueCLI(SimpleCLI):
         print("     3- Atualizar produto;")
         print("     4- Apagar produto;")
         print("Digite 'sair' para encerrar.") 
+        
+    def run(self):
+        self.mensagem()
         super().run()
         # Indicar que voltou ao menu
         print("-"*75)
@@ -96,7 +102,7 @@ class EstoqueCLI(SimpleCLI):
         print("     2- Gerência de funcionários e setores;")
         print("Digite 'sair' para encerrar.")  
 
-
+# CLI para gerência de funcionários e setores
 class FuncionariosCLI(SimpleCLI):
     def __init__(self, funcionarios: FuncionariosCRUD):
         super().__init__()
@@ -121,6 +127,7 @@ class FuncionariosCLI(SimpleCLI):
         telefone = input("Entre com o telefone: ")
         email = input("Entre com o email: ")
         print(self.funcionarios.criar_funcionario(nome, dataNascimento, cpf, id, telefone, email))
+        self.mensagem()
 
     def ler_funcionario(self):
         id = int(input("Entre com o id: "))
@@ -131,14 +138,14 @@ class FuncionariosCLI(SimpleCLI):
             print(f"CPF: {funcionario['cpf']}")
             print(f"Telefone: {funcionario['telefone']}")
             print(f"Email: {funcionario['email']}")
-        else:
-            print("Funcionário não encontrado.")
+        self.mensagem()
 
     def atualizar_funcionario(self):
         id = int(input("Entre com o id: "))
         telefone = input("Entre com o novo telefone: ")
         email = input("Entre com o novo email: ")
         self.funcionarios.atualizar_funcionario(id, telefone, email)
+        self.mensagem()
 
     def apagar_funcionario(self):
         id = int(input("Entre com o id: "))
@@ -148,33 +155,39 @@ class FuncionariosCLI(SimpleCLI):
         id = int(input("Entre com o id: "))
         nome = float(input("Entre com o nome do setor: "))
         print(self.funcionarios.criar_setor(nome, id))
+        self.mensagem()
 
     def ler_setor(self):
         id = int(input("Entre com o id: "))
         setor = self.funcionarios.ler_setor(id)
         if setor:
             print(f"Nome: {setor['nome']}")
+        self.mensagem()
 
     def atualizar_setor(self):
         id = int(input("Entre com o id: "))
         nome = input("Entre com o nome: ")
         self.funcionarios.atualizar_setor(id, nome)
+        self.mensagem()
 
     def apagar_setor(self):
         id = int(input("Enter the id: "))
         self.funcionarios.apagar_setor(id)
+        self.mensagem()
 
     def funcionario_setor(self):
-        '''
-        Ler nome do funcionário e setor e criar relacionamento entre eles
-        '''
+        funcionario = input("Entre com o nome do funcionário: ")
+        setor = input("Entre com o nome do setor: ")
+        print(self.funcionarios.funcionario_setor(funcionario, setor))
+        self.mensagem()
     
     def funcionario_gerente(self):
-        '''
-        Ler nome do funcionário e gerente e criar relacionamento entre eles
-        '''
-        
-    def run(self):
+        gerente = input("Entre com o nome do gerente: ")
+        funcionario = input("Entre com o nome do funcionário: ")
+        print(self.funcionarios.funcionario_gerente(funcionario, gerente))
+        self.mensagem()
+    
+    def mensagem(self):
         print("-"*75)
         print("Bem-vindo ao controle de funcionários!")
         print("O que deseja acessar:")
@@ -189,6 +202,9 @@ class FuncionariosCLI(SimpleCLI):
         print("     9- Cadastrar funcionário em um setor;")
         print("     10- Cadastrar gerente de um funcionario;")
         print("Digite 'sair' para encerrar.") 
+
+    def run(self):
+        self.mensagem()
         super().run()
         # Indicar que voltou ao menu
         print("-"*75)
