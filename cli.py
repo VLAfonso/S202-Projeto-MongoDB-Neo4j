@@ -61,18 +61,8 @@ class EstoqueCLI(SimpleCLI):
         self.mensagem()
 
     def ler_produto(self):
-        produtos = self.estoque.ler_todos_produtos()
-        if produtos:
-            for produto in produtos:
-                print(f"Nome: {produto.get('nome', 'N/A')}")
-                print(f"Código de barras: {produto.get('codigoBarras', 'N/A')}")
-                print(f"Preço: {produto.get('preco', 'N/A')}")
-                print(f"Quantidade: {produto.get('quantidade', 'N/A')}")
-                print("-" * 40)
-        else:
-            print("Nenhum produto cadastrado.")
+        self.estoque.ler_todos_produtos()
         self.mensagem()
-
 
     def atualizar_produto(self):
         id = int(input("Entre com o id: "))
@@ -132,21 +122,11 @@ class FuncionariosCLI(SimpleCLI):
         telefone = input("Entre com o telefone: ")
         email = input("Entre com o email: ")
         funcionario = Funcionario(nome, dataNascimento, cpf, id, telefone, email)
-        print(self.funcionarios.criar_funcionario(funcionario))
+        self.funcionarios.criar_funcionario(funcionario)
         self.mensagem()
 
     def ler_funcionarios(self):
-        funcionarios = self.funcionarios.ler_todos_funcionarios()
-        if funcionarios:
-            for funcionario in funcionarios:
-                print(f"Nome: {funcionario['nome']}")
-                print(f"Data de nascimento: {funcionario['dataNascimento']}")
-                print(f"CPF: {funcionario['cpf']}")
-                print(f"Telefone: {funcionario['telefone']}")
-                print(f"Email: {funcionario['email']}")
-                print("-" * 40)
-        else:
-            print("Não há funcionários cadastrados.")
+        self.funcionarios.ler_todos_funcionarios()
         self.mensagem()
 
     def atualizar_funcionario(self):
@@ -159,19 +139,17 @@ class FuncionariosCLI(SimpleCLI):
     def apagar_funcionario(self):
         id = int(input("Entre com o id: "))
         self.funcionarios.apagar_funcionario(id)
+        self.mensagem()
 
     def criar_setor(self):
         id = int(input("Entre com o id: "))
-        nome = float(input("Entre com o nome do setor: "))
+        nome = input("Entre com o nome do setor: ")
         setor = Setor(nome, id)
-        print(self.funcionarios.criar_setor(setor))
+        self.funcionarios.criar_setor(setor)
         self.mensagem()
 
     def ler_setor(self):
-        id = int(input("Entre com o id: "))
-        setor = self.funcionarios.ler_setor(id)
-        if setor:
-            print(f"Nome: {setor['nome']}")
+        self.funcionarios.ler_todos_setores()
         self.mensagem()
 
     def atualizar_setor(self):
@@ -188,13 +166,13 @@ class FuncionariosCLI(SimpleCLI):
     def funcionario_setor(self):
         funcionario = input("Entre com o nome do funcionário: ")
         setor = input("Entre com o nome do setor: ")
-        print(self.funcionarios.funcionario_setor(funcionario, setor))
+        self.funcionarios.funcionario_setor(funcionario, setor)
         self.mensagem()
     
     def funcionario_gerente(self):
         gerente = input("Entre com o nome do gerente: ")
         funcionario = input("Entre com o nome do funcionário: ")
-        print(self.funcionarios.funcionario_gerente(funcionario, gerente))
+        self.funcionarios.funcionario_gerente(funcionario, gerente)
         self.mensagem()
     
     def mensagem(self):
