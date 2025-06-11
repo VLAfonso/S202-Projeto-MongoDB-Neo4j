@@ -1,6 +1,8 @@
 from estoque_crud import EstoqueCRUD
 from funcionarios_crud import FuncionariosCRUD
 from produtos import Produto
+from funcionario import Funcionario
+from setor import Setor
 
 class SimpleCLI:
     def __init__(self):
@@ -129,7 +131,8 @@ class FuncionariosCLI(SimpleCLI):
         cpf = input("Entre com o cpf: ")
         telefone = input("Entre com o telefone: ")
         email = input("Entre com o email: ")
-        print(self.funcionarios.criar_funcionario(nome, dataNascimento, cpf, id, telefone, email))
+        funcionario = Funcionario(nome, dataNascimento, cpf, id, telefone, email)
+        print(self.funcionarios.criar_funcionario(funcionario))
         self.mensagem()
 
     def ler_funcionarios(self):
@@ -160,7 +163,8 @@ class FuncionariosCLI(SimpleCLI):
     def criar_setor(self):
         id = int(input("Entre com o id: "))
         nome = float(input("Entre com o nome do setor: "))
-        print(self.funcionarios.criar_setor(nome, id))
+        setor = Setor(nome, id)
+        print(self.funcionarios.criar_setor(setor))
         self.mensagem()
 
     def ler_setor(self):
