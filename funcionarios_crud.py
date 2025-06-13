@@ -16,21 +16,30 @@ class FuncionariosCRUD:
     
     def ler_todos_funcionarios(self):
         query = "MATCH (f:Funcionario) RETURN f.nome as nome, f.dataNascimento as dataNascimento, f.cpf as cpf, f.telefone as telefone, f.email as email"
-        results = self.db.execute_query(query)
-        if results:
-            funcionarios = []
-            for result in results:
-                funcionarios.append({
-                    "nome": result["nome"],
-                    "dataNascimento": result["dataNascimento"],
-                    "cpf": result["cpf"],
-                    "telefone": result["telefone"],
-                    "email": result["email"]
-                })
-            return funcionarios
+        results_funcionario = self.db.execute_query(query)
+
+        query2 = "MATCH (f:Funcionario)-[:TRABALHA_EM]->(s:Setor) RETURN f.nome AS nome_funcionario, s.nome AS nome_setor"
+        results_setor = self.db.execute_query(query2)
+
+        query3 = "MATCH (g:Funcionario)-[:GERENCIA]->(f:Funcionario) RETURN g.nome AS nome_gerente, f.nome AS nome_funcionario"
+        results_gerente = self.db.execute_query(query3)
+
+        if results_funcionario:
+            for result in results_funcionario:
+                print("-" * 40)
+                print(f"Nome: {result['nome']}")
+                print(f"Data de nascimento: {result['dataNascimento']}")
+                print(f"CPF: {result['cpf']}")
+                print(f"Telefone: {result['telefone']}")
+                print(f"Email: {result['email']}")
+                for result2 in results_setor:
+                    if result['nome']==result2['nome_funcionario']:
+                        print(f"Setor: {result2['nome_setor']}")
+                for result3 in results_gerente:
+                    if result['nome']==result3['nome_funcionario']:
+                        print(f"Gerente: {result3['nome_gerente']}")
         else:
             print('Não há funcionários cadastrados.')
-            return []
     
     def atualizar_funcionario(self, id, telefone, email):
         query = "MATCH (f:Funcionario {id: $id}) SET f.telefone = $telefone, f.email = $email"
@@ -57,18 +66,27 @@ class FuncionariosCRUD:
         else:
             print('Não foi possível criar o setor.')
     
-    def ler_setor(self, id):
-        query = "MATCH (s:Setor {id: $id}) RETURN f.nome as nome"
-        parameters = {"id": id}
-        results = self.db.execute_query(query, parameters)
-        if results:
-            result = results[0]
-            return {
-                "nome": result["nome"]
-            }
+    def ler_todos_setores(self):
+        query = "MATCH (s:Setor) RETURN s.nome as nome"
+        results_setor = self.db.execute_query(query)
+
+        query2 = "MATCH (f:Funcionario)-[:TRABALHA_EM]->(s:Setor) RETURN f.nome AS nome_funcionario, s.nome AS nome_setor"
+        results_funcionarios = self.db.execute_query(query2)
+
+        if results_setor:
+            for result in results_setor:
+                print("-" * 40)
+                print(f"Nome: {result['nome']}")
+                funcionarios = []
+                for result2 in results_funcionarios:
+                    if result['nome']==result2['nome_setor']:
+                        funcionarios.append({'nome':result2['nome_funcionario']})
+                if funcionarios != []:
+                    print("Funcionários:")
+                    for funcionario in funcionarios:
+                        print(f"     Nome: {funcionario['nome']}")
         else:
             print('Não há setores cadastrados.')
-        return None
     
     def atualizar_setor(self, id, nome):
         query = "MATCH (s:Setor {id: $id}) SET s.nome = $nome"

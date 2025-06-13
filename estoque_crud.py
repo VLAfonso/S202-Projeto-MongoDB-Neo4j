@@ -20,9 +20,14 @@ class EstoqueCRUD:
             resultados = self.db.collection.find()
             produtos = list(resultados)
             if produtos:
-                print("Produtos encontrados.")
+                for produto in produtos:
+                    print("-" * 40)
+                    print(f"Nome: {produto.get('nome', 'N/A')}")
+                    print(f"Código de barras: {produto.get('codigoBarras', 'N/A')}")
+                    print(f"Preço: {produto.get('preco', 'N/A')}")
+                    print(f"Quantidade: {produto.get('quantidade', 'N/A')}")
             else:
-                print("Nenhum produto encontrado.")
+                print("Nenhum produto cadastrado.")
             return produtos
         except Exception as e:
             print(f"Erro ao ler produtos: {e}")
